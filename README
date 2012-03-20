@@ -1,0 +1,26 @@
+This script is created to integrate curl and http://sprunge.us in a single simple script.
+
+http://sprunge.us is a pastebin-like website for command line text submission, visit the website to know more about how it works.
+
+INSTALLATION:
+
+Just run install.sh as root to install the script in /usr/bin.
+You might need to chmod+x install.sh first.
+
+USAGE:
+
+sprunge-cli <text>
+	
+	This will upload all the text written to http://sprunge.us and it will output the resulting URL.
+
+sprunge-cli -f <filename>
+	
+	This will upload all the content of the file instead.
+
+
+ABOUT THE AUTHOR:
+
+I am not the owner of the domain http://sprunge.us and I am not affiliated to its project.
+If you wish to contact me, you can send an e-mail at morgawr@gmail.com
+
+
