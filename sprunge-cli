@@ -1,9 +1,32 @@
 #!/bin/bash
-if [ "$1" = "-f" ]; then
-	text="cat $2";
-else
-  	text="echo $@";
+
+if readlink /proc/$$/fd/0 | grep -q "^pipe:"; then
+  echo "$0: If you want to call this script from a pipe, you need to call it with xargs(1) (see man xargs)"
+  exit 1;
 fi
-$text | curl -F 'sprunge=<-' http://sprunge.us
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 [-f] text (or files)"
+	exit 1;
+fi
+
+if [ "$1" = "-f" ]; then
+	counter=0
+	shift;
+	if [ $# -gt 1 ]; then
+		text+="===============$1=================\n\n"
+	fi
+	for i in $* 
+	do
+		if [ $counter != 0 ]; then
+			text+="\n\n=================$i====================\n\n"
+		fi
+		text+=` cat ${i}`
+		counter+=1
+	done
+else
+  	text="$@";
+fi
+echo -e "$text" | curl -F 'sprunge=<-' http://sprunge.us
 
 
